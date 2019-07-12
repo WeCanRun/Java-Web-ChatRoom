@@ -1,6 +1,6 @@
 # Java-Web-ChatRoom
 https://blog.csdn.net/qq_41900081/article/details/84567535
-                                            ## Javaweb 聊天室
+                                            
 ### 前言
 java课程结束了之后，老师要求我们用java做一个关于聊天室的课程设计，于是我就想做一个web应用。
 
