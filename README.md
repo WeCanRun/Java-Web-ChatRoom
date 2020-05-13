@@ -21,5 +21,5 @@ https://www.cnblogs.com/best/p/8543022.html
 
 ![image-注册界面](./images/register.png)
 
-![image-主界面](./images/images/main.png)
+![image-主界面](./images/main.png)
 
