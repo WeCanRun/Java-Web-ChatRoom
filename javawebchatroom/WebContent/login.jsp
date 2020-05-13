@@ -65,13 +65,13 @@
                 		action="${pageContext.request.contextPath }/user">
 	    		<input type="hidden" name="method" value="login">
                             <div class="field">
-                                	用户名
-                                <input autofocus="" id="id_username" maxlength="254" name="username" type="text" required />
+                                	用户名
+                                <input autofocus="" id="id_username" maxlength="50" name="username" type="text" required />
                             </div>
                         
                             <div class="field">
-                                	密码 
-                                <input id="id_password" name="password" type="password" required />
+                                	密码
+                                <input id="id_password" name="password" type="password" maxlength="20" required />
                             </div>
                         
                     <button class="ui inverted red circular right floated button" type="submit">登录</button>

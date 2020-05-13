@@ -13,7 +13,7 @@ public class User implements HttpSessionBindingListener{
 	private String username;
 	private String password;
 	private String repassword;
-	private String type;
+	private Integer type;
 	private boolean flag = false;
 	
 	@Override
@@ -57,12 +57,15 @@ public class User implements HttpSessionBindingListener{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getType() {
+
+	public Integer getType() {
 		return type;
 	}
-	public void setType(String type) {
+
+	public void setType(Integer type) {
 		this.type = type;
 	}
+
 	public String getRepassword() {
 		return repassword;
 	}

@@ -15,7 +15,7 @@
     <td height="23" align="center">
     
     	<a href="#" onclick="set('${ entry.key.username }')">${ entry.key.username }</a> 
-    	<c:if test="${ existUser.type == '管理员' and entry.key.type != '管理员'}">
+    	<c:if test="${ existUser.type == 1 and entry.key.type != 1}">
 			<a href="${ pageContext.request.contextPath }/user?method=kick&id=${ entry.key.id }">踢下线</a>
 		</c:if>
 		

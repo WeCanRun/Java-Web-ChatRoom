@@ -28,23 +28,20 @@ public class UserDaoImpl implements UserDao{
 		QueryRunner queryRunner = new QueryRunner(JDBCUtils.getDataSource());
 		String sql1 = "insert into user values(null,?,?,null)";
 		String sql2 = "select * from user where username = ?";
-		int num;
 		try {
 			
 			System.out.println(user.getUsername()+" "+user.getPassword());
 			User existUser = queryRunner.query(sql2,new BeanHandler<User>(User.class)
 					,user.getUsername());
-			//System.out.println(existUser.getUsername());
-			System.out.println("1");
+
 			if(existUser != null && user.getUsername().equals(existUser.getUsername())) {
 				System.out.println("用户名已存在");
 				user.setFlag(true);
 				return user;
 			}
 			
-			num = queryRunner.update(sql1,user.getUsername(),user.getPassword());
-			System.out.println("2");
-			
+			queryRunner.update(sql1,user.getUsername(),user.getPassword());
+
 		}catch(Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException("用户注册失败");
