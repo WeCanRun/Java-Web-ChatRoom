@@ -11,6 +11,8 @@ public class User implements HttpSessionBindingListener {
     private String username;
     private String password;
     private String repassword;
+    private String phone;
+    private String adress;
     private Integer type;
     private boolean flag = false;
 
@@ -85,6 +87,36 @@ public class User implements HttpSessionBindingListener {
 
     public void setFlag(boolean flag) {
         this.flag = flag;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", repassword='" + repassword + '\'' +
+                ", phone='" + phone + '\'' +
+                ", adress='" + adress + '\'' +
+                ", type=" + type +
+                ", flag=" + flag +
+                '}';
     }
 
     @SuppressWarnings("unchecked")

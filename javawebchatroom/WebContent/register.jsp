@@ -51,7 +51,7 @@
                     <p class="sub header">
                         Welcome to
                     </p>
-                  		  Gzhu聊天室
+                  		  聊天室
                 </h1>
 
             </div>

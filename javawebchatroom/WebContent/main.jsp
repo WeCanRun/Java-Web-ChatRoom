@@ -51,7 +51,9 @@ var sysBBS = "<span style='font-size:14px; line-height:30px;'>欢迎光Gzhu聊�
 		if(selectPerson != "${existUser.username}"){
 				form1.to.value=selectPerson;
 		}else{
-			alert("请重新选择聊天对象！");
+			// alert("请重新选择聊天对象！");
+			// 跳转到修改个人信息页
+			window.open("user?method=userInfo");
 		}
 	}
 	
@@ -94,8 +96,9 @@ var sysBBS = "<span style='font-size:14px; line-height:30px;'>欢迎光Gzhu聊�
 
 </head>
 <body>
+<div id="userInfo" style="z-index:1000;position:absolute;left:10%;top:10%"></div>
 
-	<table  width="778" height="150" border="0" align="center"
+<table  width="778" height="150" border="0" align="center"
 		cellpadding="0" cellspacing="0" style="background:#ff695e url(images/chat.png)" >
 		<tr>
 			<td>&nbsp;</td>

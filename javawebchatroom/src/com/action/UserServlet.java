@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.dao.UserDao;
+import com.dao.UserDaoImpl;
 import org.apache.commons.beanutils.BeanUtils;
 
 import com.service.UserService;
@@ -123,7 +125,7 @@ public class UserServlet extends BaseServlet {
                 req.setAttribute("error", "请输入用户名和密码");
                 return "/register.jsp";
             } else {
-                if (user.isFlag() == true) {
+                if (user.isFlag()) {
                     req.setAttribute("error", "注册失败，用户名已存在");
                     System.out.println("注册失败，用户名已存在");
                     return "/register.jsp";
@@ -138,6 +140,78 @@ public class UserServlet extends BaseServlet {
 
         return null;
     }
+
+    public String userInfo(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        System.out.println("userInfo");
+        User existUser = (User) req.getSession().getAttribute("existUser");
+        UserDao userDao = new UserDaoImpl();
+        User user = userDao.getUser(existUser.getId());
+        req.setAttribute("user", user);
+        return "userInfo.jsp";
+    }
+
+
+        /**
+         * 编辑用户信息
+         */
+
+    public String edit(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        // 接收数据
+        Map<String, String[]> map = req.getParameterMap();
+        User user = new User();
+        // 封装数据
+        try {
+            BeanUtils.populate(user, map);
+
+            // 调用Service层处理数据
+            UserService us = new UserService();
+
+            if ("".equals(user.getUsername())) {
+                req.setAttribute("error", "修改用户信息失败");
+                System.out.println("修改用户信息失败");
+                return "/userInfo.jsp";
+            }
+
+            User newUser = us.edit(user);
+            if (newUser == null) {
+                req.setAttribute("error", "修改用户信息失败");
+                System.out.println("修改用户信息失败");
+            } else if (user.isFlag()) {
+                req.setAttribute("error", "更新失败，用户名已存在");
+                System.out.println("更新失败，用户名已存在");
+            } else {
+                req.setAttribute("error", "恭喜你，修改信息成功");
+                req.setAttribute("user", newUser);
+
+                // 用户信息修改成功
+                // 第一个BUG的解决:将之前的session销毁!
+                req.getSession().invalidate();
+
+                // 第二个BUG的解决:判断用户是否已经在Map集合中,存在：已经在列表中.销毁其session.
+                // 获得到ServletContext中存的Map集合.
+                Map<User, HttpSession> userMap = (Map<User, HttpSession>) getServletContext()
+                        .getAttribute("userMap");
+                // 判断用户是否已经在map集合中'
+                if (userMap.containsKey(user)) {
+                    // 说用map中有这个用户.
+                    HttpSession session = userMap.get(user);
+                    // 将这个session销毁.
+                    session.invalidate();
+                }
+
+                // 使用监听器:HttpSessionBandingListener作用在JavaBean上的监听器.
+                req.getSession().setAttribute("existUser", newUser);
+
+            }
+            return "/userInfo.jsp";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 
     /**
      * 发送聊天内容
